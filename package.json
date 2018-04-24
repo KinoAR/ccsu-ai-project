@@ -1,0 +1,33 @@
+{
+  "name": "ccsu-ai-project",
+  "version": "1.0.0",
+  "description": "An artificial intelligence project for AI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KinoAR/ccsu-ai-project.git"
+  },
+  "keywords": [
+    "AI",
+    "Google",
+    "Cloud",
+    "Google",
+    "Google",
+    "Speech",
+    "API",
+    "JS",
+    "Node.js"
+  ],
+  "author": "Kino Rose",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KinoAR/ccsu-ai-project/issues"
+  },
+  "homepage": "https://github.com/KinoAR/ccsu-ai-project#readme",
+  "dependencies": {
+    "@google-cloud/speech": "^1.4.0"
+  }
+}
