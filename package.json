@@ -4,7 +4,8 @@
   "description": "An artificial intelligence project for AI",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,9 @@
   },
   "homepage": "https://github.com/KinoAR/ccsu-ai-project#readme",
   "dependencies": {
-    "@google-cloud/speech": "^1.4.0"
+    "@google-cloud/language": "^1.2.0",
+    "@google-cloud/speech": "^1.4.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "mic": "^2.1.2"
   }
 }
