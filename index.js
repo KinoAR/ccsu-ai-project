@@ -27,6 +27,7 @@ const speechToText = (fileName) => {
               fs.unlinkSync(fileName);
               if (!/exit/ig.test(transcription)) {
                 AI.createFile(transcription);
+                AI.readFile(transcription);
               } else {
                 //Kill the process
               }
@@ -43,7 +44,7 @@ const speechToText = (fileName) => {
 clear();
 console.log(
   chalk.magenta.bgBlack.bold(
-    figlet.textSync("Senestra", { horizontalLayout: 'full' })
+    figlet.textSync("Evelynn", { horizontalLayout: 'full' })
   )
 );
 

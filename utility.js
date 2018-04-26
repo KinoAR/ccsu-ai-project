@@ -6,5 +6,9 @@ module.exports = {
     : (magnitude > 0.5 && score < 0.0) ? "Clearly Negative" 
     : (magnitude < 0.5 && score < 0.2 && score > -0.2) ? "Neautral"
     : (magnitude > 0.5 && score == 0.0) ? "Mixed" : "Unknown";
+  }, 
+  splitNamed(text) {
+    const splitBy = /named/ig.test(text) ? 'named' : 'name';
+    return text.split(splitBy)[1].trim().toLowerCase()
   }
 }
