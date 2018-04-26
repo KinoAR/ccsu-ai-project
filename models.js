@@ -18,7 +18,7 @@ module.exports = {
     const myModel = model([rule(/read/ig), rule(/file/ig), rule(/named|name/ig)]);
     if(myModel(transcription)) {
       const fileName = utils.splitNamed(transcription);
-      const fileContents = fs.readFileSync(`${fileName}.txt`);
+      const fileContents = fs.readFileSync(`${fileName}.txt`, 'utf8');
       console.log(fileContents);
     }
   }
