@@ -1,35 +1,33 @@
 const fs = require("fs");
-const mic = require("mic");
+const chalk = require("chalk");
+const figlet = require("figlet");
+const clear = require("clear");
 const speechClient = require("./speech-client");
 const languageClient = require("./language-client");
+const micClient = require("./mic");
 const audioTransformer = require("./audio-transformer");
 const utils = require("./utility");
 
-const micInstance = mic({ 
-  rate: "441000",
-  channels: "2",
-  debug: true,
-  fileType: 'mp3',
-  exitOnSilence: 6
-});
-
-const createOutStream = (fileName) => fs.WriteStream(fileName);
-const inputStream = micInstance.getAudioStream(); 
-const outStream = createOutStream("temp.mp3");
 const speechToText = (fileName) => {
   audioTransformer.mp3ToFlacMono(fileName)
     .then(value => {
       speechClient.transcribe(value)
         .then(transcription => {
-          console.log(transcription);
+          console.log(
+            chalk.white.bgBlack.bold(transcription)
+          );
           languageClient.analyzeSentiments(transcription)
             .then(sentiments => {
-              console.log(utils.sentimentToText(sentiments));
+              console.log(
+                chalk.white.bgBlack.bold(
+                  utils.sentimentToText(sentiments)
+                )
+              );
+              fs.unlinkSync(fileName);
               if (!/exit/ig.test(transcription)) {
-                inputStream.pipe(createOutStream(fileName));
-                micInstance.resume();
+                
               } else {
-                micInstance.stop();
+                //Kill the process
               }
             }).catch(err => {
               console.error(err);
@@ -41,54 +39,16 @@ const speechToText = (fileName) => {
     });
 };
 
-inputStream.pipe(outStream);
+clear();
+console.log(
+  chalk.magenta.bgBlack.bold(
+    figlet.textSync("Senestra", { horizontalLayout: 'full' })
+  )
+);
 
-inputStream.on('data', (data) => {
-  // console.log(data.length);
-});
-inputStream.on('error', (err) => {
-  console.error(err);
-});
-
-inputStream.on('startComplete', () => {
-  console.log("SIGNAL START");
-  setTimeout(() => {
-    micInstance.pause();
-  }, 6000);
-});
-
-inputStream.on('stopComplete', () => {
-  console.log("SIGNAL STOP");
-});
-
-inputStream.on('pauseComplete', () => {
-  console.log("SIGNAL PAUSE");
-  setTimeout(() => {
-    speechToText("temp.mp3");
-  }, 2000);
-});
-
-inputStream.on('resumeComplete', () => {
-  console.log("SIGNAL RESUME")
-  setTimeout(() => {
-    micInstance.pause();
-  }, 6000);
-});
-
-inputStream.on('silence', () => {
-  console.log("SIGNAL SILENCE");
-  setTimeout(() => {
-    micInstance.stop();
-  }, 3000);
-});
-
-inputStream.on('processExitComplete', () => {
-  console.log("SIGNAL PROCESS EXIT");
-});
-
-outStream.on('end', () => {
-  console.log("Recording Ended");
-});
-
-//Start Mic Operations
-micInstance.start();
+micClient.micToMp3("temp.mp3")
+  .then((fileName) => {
+    speechToText(fileName);
+  }).catch((err) => {
+    console.error(err);
+  });
