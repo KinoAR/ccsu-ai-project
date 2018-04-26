@@ -7,6 +7,7 @@ const languageClient = require("./language-client");
 const micClient = require("./mic");
 const audioTransformer = require("./audio-transformer");
 const utils = require("./utility");
+const AI = require("./models");
 
 const speechToText = (fileName) => {
   audioTransformer.mp3ToFlacMono(fileName)
@@ -25,7 +26,7 @@ const speechToText = (fileName) => {
               );
               fs.unlinkSync(fileName);
               if (!/exit/ig.test(transcription)) {
-                
+                AI.createFile(transcription);
               } else {
                 //Kill the process
               }
