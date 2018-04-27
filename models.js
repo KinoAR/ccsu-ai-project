@@ -21,5 +21,15 @@ module.exports = {
       const fileContents = fs.readFileSync(`${fileName}.txt`, 'utf8');
       console.log(fileContents);
     }
+  },
+  deleteFile(transcription) {
+    const myModel = model([rule(/delete/ig), rule(/file/ig, rule(/named|name/ig))]);
+    if(myModel(transcription)) {
+      const fileName = utils.splitNamed(transcription);
+      fs.unlinkSync(`${fileName}.txt`);
+      console.log(
+        chalk.red.bgBlack.bold(`${fileName}.txt deleted.`)
+      );
+    }
   }
 };
