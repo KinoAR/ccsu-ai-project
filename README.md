@@ -3,10 +3,14 @@
 ## Authors
 Kino Rose
 
-# How To Run The Project
+## How To Run The Project
 ```bash
 npm install
 
 npm start
 ```
 
+## Dependencies
+
+* SOX - Audio Recording
+* FFMPEG - Audio Transpile
