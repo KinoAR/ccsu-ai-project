@@ -34,6 +34,11 @@ const speechToText = (fileName, command) => {
                   resolve("Complete");
                 } else {
                   //Kill the process
+                  console.log(
+                    chalk.magenta.bgBlack.bold(
+                      "Goodbye"
+                    )
+                  );
                 }
               }).catch(err => {
                 reject(err);
@@ -68,6 +73,13 @@ const startInterface = () => {
           }).catch((err) => {
             console.error(err);
           });
+      } else {
+        clear();
+        console.log(
+          chalk.magenta.bgBlack.bold(
+            figlet.textSync("Goodbye", {horizontalLayout: 'full'})
+          )
+        );
       }
     });
   });

@@ -18,11 +18,6 @@ const configAudio = (fileName) => {
   };
 }
 
-// const config = {
-//   encoding: 'FLAC',
-//   languageCode: 'en-US'
-// }
-
 module.exports = {
   transcribe(fileName) {
     const file = fs.readFileSync(fileName);

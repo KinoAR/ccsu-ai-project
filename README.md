@@ -10,6 +10,12 @@ npm install
 npm start
 ```
 
+## Commands
+
+* Read File Named
+* Create File Named
+* Delete File Named
+
 ## Dependencies
 
 * SOX - Audio Recording
